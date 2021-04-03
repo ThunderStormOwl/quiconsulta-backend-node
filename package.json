@@ -8,7 +8,8 @@
   "scripts": {
     "run-d" : "ts-node-dev ./src/server.ts",
     "build" : "tsc",
-    "run-b" : "node ./build/server.js"
+    "run-b" : "node ./build/server.js",
+    "knex:migrate" : "knex --knexfile ./src/knexfile.ts migrate:latest"
   },
   "dependencies": {
     "cors": "^2.8.5",
