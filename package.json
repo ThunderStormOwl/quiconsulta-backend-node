@@ -9,7 +9,8 @@
     "run-d" : "ts-node-dev ./src/server.ts",
     "build" : "tsc",
     "run-b" : "node ./build/server.js",
-    "knex:migrate" : "knex --knexfile ./src/knexfile.ts migrate:latest"
+    "knex-migrate" : "knex --knexfile ./src/knexfile.ts migrate:latest",
+    "knex-rollback-all" : "knex --knexfile ./src/knexfiles.ts migrate:rollback --all"
   },
   "dependencies": {
     "cors": "^2.8.5",
