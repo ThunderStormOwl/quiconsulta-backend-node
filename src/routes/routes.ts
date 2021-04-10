@@ -1,8 +1,9 @@
-import { SignUpController } from './../controllers/sign-up/SignUpController';
+import { SignUpController, SignInController } from './../controllers/index';
 import {Router} from 'express';
 
 const routes = Router();
 
 routes.post('/sign-up', SignUpController.signUp);
+routes.post('/sign-in', SignInController.signIn);
 
 export {routes};

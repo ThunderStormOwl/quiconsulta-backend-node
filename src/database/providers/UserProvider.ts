@@ -15,7 +15,6 @@ const createUser = async (userToCreate : IUserToCreate) => {
         return {
             id: insertedUserId,
             ...userToCreate,
-
         };
     }
     catch (error){
@@ -24,6 +23,34 @@ const createUser = async (userToCreate : IUserToCreate) => {
     
 }
 
+interface IUserReadResult{
+    id : number,
+    name : string,
+    username? : string,
+    email : string,
+    password : string,
+}
+
+const readUserByEmail = async (email : string) : Promise<string | IUserReadResult> =>{
+    try{
+        const user = await Knex(TableNames.user).select('*').where({email}).first();
+
+        if(!user) return 'User does not exist';
+
+        return{
+            id: user.id,
+            name : user.name,
+            email : user.email,
+            password : user.password
+        }
+    }
+    catch(error){
+        console.log(error);
+        return 'Internal error';
+    }
+}
+
 export const UserProvider = {
     createUser,
+    readUserByEmail,
 }
