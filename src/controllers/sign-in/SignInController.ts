@@ -22,10 +22,10 @@ const signIn = async (req: Request, res: Response) => {
         }
 
         if(await verifyPassword(password, user.password)){
-            return res.status(StatusCodes.OK).json('this is an access token son.');
+            return res.status(StatusCodes.OK).json('This is an access token son.');
         }
         else{
-            return res.status(StatusCodes.UNAUTHORIZED).send('invalid email or password.');
+            return res.status(StatusCodes.UNAUTHORIZED).send('Invalid email or password.');
         }
 
     }
