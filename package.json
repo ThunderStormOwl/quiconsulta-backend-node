@@ -10,6 +10,7 @@
     "build" : "tsc",
     "run-b" : "node ./build/server.js",
     "knex-migrate" : "knex --knexfile ./src/knexfile.ts migrate:latest",
+    "knex-rollback" : "knex --knexfile ./src/knexfiles.ts migrate:rollback",
     "knex-rollback-all" : "knex --knexfile ./src/knexfiles.ts migrate:rollback --all"
   },
   "dependencies": {
