@@ -1,6 +1,14 @@
 import { UserProvider } from './../../database/providers/UserProvider';
 import {Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
+import {celebrate, Joi} from 'celebrate';
+
+const validateSignIn = celebrate({
+    body: Joi.object({
+        email : Joi.string().email().required(),
+        password : Joi.string().min(6).required(),
+    }),
+})
 
 const signIn = async (req: Request, res: Response) => {
     try {
@@ -13,7 +21,7 @@ const signIn = async (req: Request, res: Response) => {
         }
 
         if(user.password === password){
-            return res.status(StatusCodes.OK).send('this is an access token son.');
+            return res.status(StatusCodes.OK).json('this is an access token son.');
         }
         else{
             return res.status(StatusCodes.UNAUTHORIZED).send('invalid email or password.');
@@ -28,4 +36,5 @@ const signIn = async (req: Request, res: Response) => {
 
 export const SignInController = {
     signIn,
+    validateSignIn
 }
