@@ -1,5 +1,7 @@
+
 import { TableNames } from './../TableNames';
 import { Knex } from './../connection';
+import { hashPassword } from '../../services';
 
 interface IUserToCreate{
     name : string,
@@ -10,11 +12,16 @@ interface IUserToCreate{
 
 const createUser = async (userToCreate : IUserToCreate) => {
     try{
+
+        userToCreate.password = await hashPassword(userToCreate.password);
+
         const [insertedUserId] = await Knex(TableNames.user).insert(userToCreate);
 
         return {
             id: insertedUserId,
-            ...userToCreate,
+            name: userToCreate.name,
+            username: userToCreate.username,
+            email: userToCreate.email,
         };
     }
     catch (error){

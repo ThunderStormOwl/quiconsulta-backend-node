@@ -1,3 +1,4 @@
+import { verifyPassword } from '../../services';
 import { UserProvider } from './../../database/providers/UserProvider';
 import {Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
@@ -20,7 +21,7 @@ const signIn = async (req: Request, res: Response) => {
             return res.status(StatusCodes.BAD_REQUEST).send(user);
         }
 
-        if(user.password === password){
+        if(await verifyPassword(password, user.password)){
             return res.status(StatusCodes.OK).json('this is an access token son.');
         }
         else{
@@ -30,7 +31,7 @@ const signIn = async (req: Request, res: Response) => {
     }
     catch(error){
         console.log(error);
-        return res.status(StatusCodes.BAD_REQUEST).send("Something went wrong =[");
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Something went wrong =[");
     }
 }
 
