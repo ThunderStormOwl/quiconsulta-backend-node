@@ -1,4 +1,4 @@
 import knex from 'knex';
-import {development} from './../knexfile';
+import {development, production} from './../knexfile';
 
-export const Knex = knex(development);
+export const Knex = knex(process.env.NODE_ENV === 'production' ? production : development);

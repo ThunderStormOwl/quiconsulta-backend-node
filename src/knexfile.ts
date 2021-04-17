@@ -1,3 +1,4 @@
+import { Knex } from 'knex';
 import path from 'path';
 
 const development = {
@@ -12,10 +13,14 @@ const development = {
 const production = {
     client: 'pg',
     connection: {
-        host: '',
-        user: '',
-        password: '',
-        database: ''
+        port: Number(process.env.DATABASE_PORT || 5432),
+        host: process.env.DATABASE_HOST,
+        user: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_NAME,
+        ssl: process.env.DATABASE_SSL ? 
+            {rejectUnauthorized : process.env.DATABASE_SSL_REJCT_UNAUTHORIZED === 'false' ? false: true} 
+            : undefined
     }
 }
 
